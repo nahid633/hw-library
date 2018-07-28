@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="col-lg-8 col-md-8 col-sm-8 offset-lg-2 offset-md-2 offset-sm-2" style="margin-top: 50px">
+    <form novalidate [formGroup]="categoryForm" >
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group">
+            <label for="category">Category name</label><span class="error">*</span>
+            <input type="text" class="form-control" id="category"  formControlName="category" placeholder="Documentary">
+            <div  *ngIf="categoryForm.get('category').invalid&&categoryForm.get('category').dirty || categoryForm.get('category').touched">
+              <p class="error"  *ngIf="categoryForm.get('category').hasError('required')">* category required</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row col-lg-6 col-md-6 col-sm-6 offset-lg-3 offset-md-3 offset-sm-3">
+        <button type="button"  style="width: 100%" (click)="onSubmit()" [disabled]="categoryForm.invalid" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<hr>
+<div class="col-lg-6 col-md-6 col-sm-6 offset-lg-3 offset-md-3 offset-sm-3" style="max-height: 50vh;overflow-y: scroll">
+  <table class="table table-bordered">
+    <thead style="text-align: center;">
+    <tr>
+      <td>Categories</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td>Documentary</td></tr>
+    <tr><td>Drama</td></tr>
+    <tr><td>Crime</td></tr>
+    <tr><td>Comedy</td></tr>
+    <tr><td>Comedy</td></tr>
+    <tr><td>Comedy</td></tr>
+    <tr><td>Comedy</td></tr>
+    <tr><td>Comedy</td></tr>
+    <tr><td>Comedy</td></tr>
+    <tr><td>Comedy</td></tr>
+    <tr><td>Comedy</td></tr>
+
+    </tbody>
+  </table>
+</div>

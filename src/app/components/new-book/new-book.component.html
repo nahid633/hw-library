@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="col-lg-8 col-md-8 col-sm-8 offset-lg-2 offset-md-2 offset-sm-2" style="margin-top: 50px">
+    <form novalidate [formGroup]="bookForm" >
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="form-group">
+            <label for="author">Author</label><span class="error">*</span>
+            <input type="text" class="form-control" id="author"  formControlName="author" placeholder="Chinua Achebe">
+            <div  *ngIf="bookForm.get('author').invalid&&bookForm.get('author').dirty || bookForm.get('author').touched">
+              <p class="error"  *ngIf="bookForm.get('author').hasError('required')">* Author required</p>
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" class="form-control" id="country" formControlName="country" placeholder="United Kingdom">
+          </div>
+          <div class="form-group">
+            <label for="language">Language</label><span class="error">*</span>
+            <select class="form-control" id="language" formControlName="language">
+              <option value="Azerbaijani">Azerbaijani</option>
+              <option value="English">English</option>
+              <option value="Russian">Russian</option>
+              <option value="Turkish">Turkish</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label><span class="error">*</span>
+            <span pTooltip="New category" style="float: right;margin-right: 15px" (click)="showAddCategory = !showAddCategory"><i class="fa fa-plus" aria-hidden="true"></i></span>
+            <div *ngIf="showAddCategory ">
+            <input style="display: inline-block" type="text" class="form-control category"  name="category"  [(ngModel)]="newCategory" (keyup.enter)="onAddCategory()"  [ngModelOptions]="{standalone: true}" placeholder="new category">
+            <input style="display: inline-block" type="button" class="form-control submit"   value="Submit" (click)="onAddCategory()" >
+            </div>
+            <select class="form-control" style="display: inline-block" id="category" formControlName="category">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label><span class="error">*</span>
+            <textarea class="form-control" id="description" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="image">Image file input</label>
+            <input type="file" class="form-control-file" formControlName="image" id="image">
+          </div>
+
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="form-group">
+            <label for="pages">Pages</label><span class="error">*</span>
+            <input type="number" class="form-control" formControlName="pages" id="pages" placeholder="216">
+          </div>
+          <div class="form-group">
+            <label for="title">Title</label><span class="error">*</span>
+            <input type="text" class="form-control" id="title" formControlName="title" placeholder="Mrs Dalloway">
+          </div>
+          <div class="form-group">
+            <label for="year">Year</label><span class="error">*</span>
+            <input type="text" class="form-control" id="year" formControlName="year" placeholder="1925">
+          </div>
+          <div class="form-group">
+            <label for="pdf">PDF file input</label><span class="error">*</span>
+            <input type="file" class="form-control-file" formControlName="pdf" id="pdf">
+          </div>
+        </div>
+      </div>
+      <div class="row col-lg-6 col-md-6 col-sm-6 offset-lg-3 offset-md-3 offset-sm-3">
+        <button type="button"  style="width: 100%" (click)="onSubmit()" [disabled]="bookForm.invalid" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

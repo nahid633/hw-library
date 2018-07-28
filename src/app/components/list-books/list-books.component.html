@@ -1,0 +1,94 @@
+<p-dataView #dv [value]="books" [paginator]="true" [rows]="12" paginatorPosition="both" filterBy="title"
+            [sortField]="sortField" [sortOrder]="sortOrder">
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">
+          <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
+        </div>
+        <div class="ui-g-6 ui-md-4 filter-container">
+          <div style="position:relative">
+            <input type="search" class="form-control" pInputText placeholder="Search by title" (keyup)="dv.filter($event.target.value)">
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-4" style="text-align:right">
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        </div>
+      </div>
+    </div>
+  </p-header>
+  <ng-template let-book pTemplate="listItem">
+    <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+      <div class="ui-g-12 ui-md-3" style="text-align:center">
+        <img src="assets/images/placeholder.png">
+      </div>
+      <div class="ui-g-12 ui-md-8 car-details">
+        <div class="ui-g">
+          <div class="ui-g-2 ui-sm-6">Author: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{book.author}}</b></div>
+
+          <div class="ui-g-2 ui-sm-6">Country: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{book.country}}</b></div>
+
+          <div class="ui-g-2 ui-sm-6">Language: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{book.language}}</b></div>
+
+          <div class="ui-g-2 ui-sm-6">Link: </div>
+          <div class="ui-g-10 ui-sm-6"><b><a [href]="book.link" target="_blank">{{book.link}}</a></b></div>
+
+          <div class="ui-g-2 ui-sm-6">Pages: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{book.pages}}</b></div>
+
+          <div class="ui-g-2 ui-sm-6">Title: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{book.title}}</b></div>
+
+          <div class="ui-g-2 ui-sm-6">Year: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{book.year}}</b></div>
+        </div>
+      </div>
+      <div class="ui-g-6 ui-md-1 search-icon">
+        <button pButton type="button" class="ui-button-info" icon="pi pi-search" (click)="selectBook($event, book)"></button>
+        <!--<button pButton type="button" class="ui-button-success" icon="pi pi-check" (click)="editBook($event, book)"></button>-->
+        <button pButton type="button" class="ui-button-danger" icon="fa fa-trash" (click)="removeBook($event, book)"></button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template let-book pTemplate="gridItem">
+    <div style="padding:.5em" class="ui-g-12 ui-md-3">
+      <p-panel [header]="book.title" [style]="{'text-align':'center'}">
+        <img src="assets/images/placeholder.png" width="60">
+        <div class="car-detail">{{book.author}} - {{book.year}}</div>
+        <hr class="ui-widget-content" style="border-top:0">
+        <button pButton type="button" icon="pi pi-search" (click)="selectBook($event, book)" style="margin-top:0"></button>
+      </p-panel>
+    </div>
+  </ng-template>
+</p-dataView>
+
+<p-dialog header="Book Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="500" (onAfterHide)="onDialogHide()">
+  <div class="ui-g" *ngIf="selectedBook">
+    <div class="ui-g-12" style="text-align:center">
+      <img src="assets/images/placeholder.png">
+    </div>
+    <div class="ui-g-4">Author: </div>
+    <div class="ui-g-8">{{selectedBook.author}}</div>
+
+    <div class="ui-g-4">Country: </div>
+    <div class="ui-g-8">{{selectedBook.country}}</div>
+
+    <div class="ui-g-4">Language: </div>
+    <div class="ui-g-8">{{selectedBook.language}}</div>
+
+    <div class="ui-g-4">Link: </div>
+    <div class="ui-g-8"><a [href]="selectedBook.link" target="_blank">{{selectedBook.link}}</a></div>
+
+    <div class="ui-g-4">Pages: </div>
+    <div class="ui-g-8">{{selectedBook.pages}}</div>
+
+    <div class="ui-g-4">Title: </div>
+    <div class="ui-g-8">{{selectedBook.title}}</div>
+
+    <div class="ui-g-4">Year: </div>
+    <div class="ui-g-8">{{selectedBook.year}}</div>
+  </div>
+</p-dialog>
